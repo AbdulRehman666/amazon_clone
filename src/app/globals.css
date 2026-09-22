@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eaeded;
+  --foreground: #0f1111;
+  --navy: #131921;
+  --navy-light: #232f3e;
+  --accent: #febd69;
+  --accent-dark: #f3a847;
+  --link: #007185;
+  --price: #b12704;
+  --success: #067d62;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-link: var(--link);
+  --color-price: var(--price);
+  --color-success: var(--success);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
