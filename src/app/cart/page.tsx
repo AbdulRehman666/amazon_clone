@@ -58,7 +58,7 @@ export default async function CartPage() {
             <p className="mt-1 text-2xl font-medium">{formatCents(subtotalCents)}</p>
             <Link
               href="/checkout"
-              className="mt-4 block w-full rounded-full bg-ink px-4 py-3 text-center text-sm font-medium text-paper hover:bg-brand"
+              className="mt-4 block w-full rounded-full bg-ink px-4 py-3 text-center text-sm font-medium text-paper hover:bg-brand transition-all hover:scale-[1.02] active:scale-95"
             >
               Checkout
             </Link>

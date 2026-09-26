@@ -69,7 +69,7 @@ export default async function OrderConfirmationPage({
       </div>
 
       <div className="mt-6 flex justify-center gap-4">
-        <Link href="/account/orders" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper hover:bg-brand">
+        <Link href="/account/orders" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper hover:bg-brand transition-all hover:scale-[1.02] active:scale-95">
           View your orders
         </Link>
         <Link href="/" className="rounded-full border border-line px-4 py-2 text-sm hover:border-ink">

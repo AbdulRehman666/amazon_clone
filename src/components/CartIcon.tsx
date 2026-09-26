@@ -19,7 +19,10 @@ export default function CartIcon({ count }: { count: number }) {
       </svg>
       Bag
       {count > 0 && (
-        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-[11px] font-bold text-white">
+        <span
+          key={count}
+          className="animate-pop flex h-5 min-w-5 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark px-1 text-[11px] font-bold text-white shadow-sm"
+        >
           {count > 99 ? "99+" : count}
         </span>
       )}

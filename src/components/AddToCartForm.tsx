@@ -36,7 +36,9 @@ export default function AddToCartForm({ productId }: { productId: string }) {
         <input type="hidden" name="quantity" value={quantity} />
         <button
           type="submit"
-          className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand"
+          className={`w-full rounded-full px-4 py-3 text-sm font-medium text-paper shadow-lg shadow-ink/10 transition-all hover:scale-[1.02] hover:bg-brand active:scale-95 ${
+            added ? "animate-pop bg-success" : "bg-ink"
+          }`}
         >
           {added ? "Added to bag ✓" : "Add to bag"}
         </button>
@@ -47,7 +49,7 @@ export default function AddToCartForm({ productId }: { productId: string }) {
         <input type="hidden" name="quantity" value={quantity} />
         <button
           type="submit"
-          className="w-full rounded-full border border-line px-4 py-3 text-sm font-medium hover:border-ink"
+          className="w-full rounded-full border border-line px-4 py-3 text-sm font-medium transition-all hover:scale-[1.02] hover:border-ink hover:bg-ink/5 active:scale-95"
         >
           Buy now
         </button>

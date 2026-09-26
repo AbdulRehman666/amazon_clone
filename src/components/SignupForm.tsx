@@ -47,7 +47,7 @@ export default function SignupForm({ redirectTo }: { redirectTo: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand disabled:opacity-50"
+        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-95"
       >
         {pending ? "Creating account..." : "Create your Marlo account"}
       </button>

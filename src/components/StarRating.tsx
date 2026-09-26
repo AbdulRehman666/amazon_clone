@@ -11,11 +11,11 @@ function Star({ fill }: { fill: number }) {
       </defs>
       <path
         d="M10 1.5 12.6 7l6 .87-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6-4.3-4.2 6-.87Z"
-        fill="#e7e1d6"
+        fill="#ece1e4"
       />
       <path
         d="M10 1.5 12.6 7l6 .87-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6-4.3-4.2 6-.87Z"
-        fill="#b4502a"
+        fill="#ff6b4a"
         clipPath={`url(#${id})`}
       />
     </svg>

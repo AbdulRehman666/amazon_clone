@@ -7,7 +7,7 @@ export default async function SignupPage({ searchParams }: PageProps<"/signup">)
 
   return (
     <div className="mx-auto max-w-sm px-4 py-10">
-      <Link href="/" className="mb-6 block text-center font-display text-3xl">
+      <Link href="/" className="mb-6 block text-center font-display text-3xl italic text-ink transition-colors hover:text-brand">
         Marlo
       </Link>
       <div className="rounded-2xl border border-line bg-surface p-6">

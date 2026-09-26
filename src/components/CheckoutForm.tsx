@@ -10,7 +10,7 @@ const labelClass = "mb-1 block text-sm text-muted";
 function StepHeading({ step, title }: { step: number; title: string }) {
   return (
     <div className="mb-4 flex items-center gap-3">
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-xs font-medium text-paper">
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-brand to-accent2 text-xs font-medium text-paper">
         {step}
       </span>
       <h2 className="text-lg font-medium">{title}</h2>
@@ -97,7 +97,7 @@ export default function CheckoutForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand disabled:opacity-50"
+        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-95"
       >
         {pending ? "Placing order..." : "Place order"}
       </button>
