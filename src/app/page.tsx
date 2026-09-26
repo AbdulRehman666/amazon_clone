@@ -8,7 +8,7 @@ export default async function HomePage() {
     orderBy: { name: "asc" },
     include: {
       products: {
-        take: 4,
+        take: 1,
         orderBy: { reviewCount: "desc" },
       },
     },
@@ -19,81 +19,89 @@ export default async function HomePage() {
     take: 8,
   });
 
+  const spotlight = featured[0];
+  const spotlightImage = spotlight ? (JSON.parse(spotlight.images) as string[])[0] : null;
+
   return (
-    <div className="bg-background pb-16">
-      <div className="relative h-[260px] w-full overflow-hidden bg-gradient-to-b from-[#232f3e] to-background sm:h-[380px]">
-        <Image
-          src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1600&q=70&auto=format&fit=crop"
-          alt=""
-          fill
-          priority
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-      </div>
-
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="-mt-24 grid grid-cols-1 gap-4 sm:-mt-32 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.slice(0, 4).map((cat) => (
-            <div key={cat.id} className="rounded-md bg-white p-4 shadow">
-              <h2 className="mb-3 text-xl font-bold">{cat.name}</h2>
-              <div className="grid grid-cols-2 gap-2">
-                {cat.products.slice(0, 4).map((p) => {
-                  const images = JSON.parse(p.images) as string[];
-                  return (
-                    <Link key={p.id} href={`/product/${p.slug}`} className="block">
-                      <div className="relative aspect-square w-full overflow-hidden rounded bg-gray-50">
-                        <Image src={images[0]} alt={p.title} fill sizes="150px" className="object-cover" />
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
+    <div className="pb-20">
+      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 sm:pt-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-brand">New season</p>
+            <h1 className="mt-3 font-display text-4xl leading-[1.05] sm:text-6xl">
+              Things worth
+              <br />
+              keeping.
+            </h1>
+            <p className="mt-4 max-w-md text-muted">
+              A small, considered catalog across electronics, home, fashion, and more —
+              picked for quality, not volume.
+            </p>
+            <div className="mt-6 flex gap-3">
               <Link
-                href={`/s?category=${cat.slug}`}
-                className="mt-3 inline-block text-sm text-link hover:underline"
+                href="/s"
+                className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-brand"
               >
-                Shop {cat.name}
+                Shop everything
+              </Link>
+              <Link
+                href={`/s?category=${categories[0]?.slug ?? ""}`}
+                className="rounded-full border border-line px-6 py-3 text-sm font-medium hover:border-ink"
+              >
+                Browse {categories[0]?.name ?? "categories"}
               </Link>
             </div>
-          ))}
-        </div>
-
-        <div className="mt-8 rounded-md bg-white p-4 shadow">
-          <h2 className="mb-4 text-xl font-bold">Best sellers in amazan</h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-            {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
           </div>
-        </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.slice(4).map((cat) => (
-            <div key={cat.id} className="rounded-md bg-white p-4 shadow">
-              <h2 className="mb-3 text-xl font-bold">{cat.name}</h2>
-              <div className="grid grid-cols-2 gap-2">
-                {cat.products.slice(0, 4).map((p) => {
-                  const images = JSON.parse(p.images) as string[];
-                  return (
-                    <Link key={p.id} href={`/product/${p.slug}`} className="block">
-                      <div className="relative aspect-square w-full overflow-hidden rounded bg-gray-50">
-                        <Image src={images[0]} alt={p.title} fill sizes="150px" className="object-cover" />
-                      </div>
-                    </Link>
-                  );
-                })}
+          {spotlight && spotlightImage && (
+            <Link
+              href={`/product/${spotlight.slug}`}
+              className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-line/40"
+            >
+              <Image
+                src={spotlightImage}
+                alt={spotlight.title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 560px"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-surface/90 px-4 py-3 backdrop-blur">
+                <p className="line-clamp-1 text-sm font-medium">{spotlight.title}</p>
+                <p className="text-xs text-muted">Most loved this month</p>
               </div>
-              <Link
-                href={`/s?category=${cat.slug}`}
-                className="mt-3 inline-block text-sm text-link hover:underline"
-              >
-                Shop {cat.name}
-              </Link>
-            </div>
+            </Link>
+          )}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-14 max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <Link
+              key={c.id}
+              href={`/s?category=${c.slug}`}
+              className="rounded-full border border-line px-4 py-2 text-sm hover:border-ink"
+            >
+              {c.name}
+            </Link>
           ))}
         </div>
-      </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-6xl px-4 sm:px-6">
+        <div className="mb-6 flex items-end justify-between">
+          <h2 className="font-display text-2xl">Most loved right now</h2>
+          <Link href="/s" className="text-sm text-brand hover:underline">
+            View all
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+          {featured.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -38,6 +38,7 @@ model User {
   email        String    @unique
   passwordHash String
   name         String
+  role         String    @default("customer") // "customer" | "admin"
   createdAt    DateTime  @default(now())
   addresses    Address[]
   orders       Order[]
@@ -65,7 +66,7 @@ model Order {
   user           User        @relation(fields: [userId], references: [id])
   addressId      String
   address        Address     @relation(fields: [addressId], references: [id])
-  status         String      @default("placed")
+  status         String      @default("pending") // "pending" | "in_progress" | "shipped" | "completed"
   subtotalCents  Int
   shippingCents  Int
   taxCents       Int

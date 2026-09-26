@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
+
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "admin@marlo.test";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "AdminPass123!";
 
 function img(id: string) {
   return `https://images.unsplash.com/photo-${id}?w=900&q=80&auto=format&fit=crop`;
@@ -567,7 +571,20 @@ async function main() {
     });
   }
 
+  const adminPasswordHash = await bcrypt.hash(ADMIN_PASSWORD, 10);
+  await prisma.user.upsert({
+    where: { email: ADMIN_EMAIL },
+    update: { role: "admin" },
+    create: {
+      email: ADMIN_EMAIL,
+      name: "Marlo Admin",
+      passwordHash: adminPasswordHash,
+      role: "admin",
+    },
+  });
+
   console.log(`Seeded ${categories.length} categories and ${products.length} products.`);
+  console.log(`Admin login: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`);
 }
 
 main()

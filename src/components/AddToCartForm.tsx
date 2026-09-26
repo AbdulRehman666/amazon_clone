@@ -8,19 +8,22 @@ export default function AddToCartForm({ productId }: { productId: string }) {
   const [added, setAdded] = useState(false);
 
   return (
-    <div className="mt-4 space-y-2">
-      <select
-        value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
-        className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm"
-        aria-label="Quantity"
-      >
-        {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-          <option key={n} value={n}>
-            Qty: {n}
-          </option>
-        ))}
-      </select>
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-muted">Quantity</span>
+        <select
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          className="rounded-full border border-line px-3 py-1.5 text-sm"
+          aria-label="Quantity"
+        >
+          {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <form
         action={async (formData) => {
@@ -33,9 +36,9 @@ export default function AddToCartForm({ productId }: { productId: string }) {
         <input type="hidden" name="quantity" value={quantity} />
         <button
           type="submit"
-          className="w-full rounded-full bg-accent px-4 py-2 text-sm font-medium hover:bg-accent-dark"
+          className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand"
         >
-          {added ? "Added ✓" : "Add to Cart"}
+          {added ? "Added to bag ✓" : "Add to bag"}
         </button>
       </form>
 
@@ -44,9 +47,9 @@ export default function AddToCartForm({ productId }: { productId: string }) {
         <input type="hidden" name="quantity" value={quantity} />
         <button
           type="submit"
-          className="w-full rounded-full bg-[#ffa41c] px-4 py-2 text-sm font-medium hover:bg-[#e5901a]"
+          className="w-full rounded-full border border-line px-4 py-3 text-sm font-medium hover:border-ink"
         >
-          Buy Now
+          Buy now
         </button>
       </form>
     </div>

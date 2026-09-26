@@ -20,49 +20,51 @@ export default async function CheckoutPage() {
   const totalCents = subtotalCents + shippingCents + taxCents;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6">
-      <h1 className="mb-4 text-2xl font-medium">Checkout</h1>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <h1 className="mb-8 font-display text-3xl">Checkout</h1>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
         <CheckoutForm />
 
-        <div className="h-fit space-y-4">
-          <div className="rounded-md bg-white p-4 shadow-sm">
-            <h2 className="mb-3 font-bold">Order summary</h2>
-            <div className="space-y-1 text-sm">
+        <div className="h-fit space-y-6">
+          <div className="rounded-2xl border border-line p-6">
+            <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-muted">
+              Order summary
+            </h2>
+            <div className="space-y-1.5 text-sm">
               <div className="flex justify-between">
-                <span>
-                  Items ({itemCount}):
-                </span>
+                <span className="text-muted">Items ({itemCount})</span>
                 <span>{formatCents(subtotalCents)}</span>
               </div>
               <div className="flex justify-between">
-                <span>Shipping:</span>
-                <span>{shippingCents === 0 ? "FREE" : formatCents(shippingCents)}</span>
+                <span className="text-muted">Shipping</span>
+                <span>{shippingCents === 0 ? "Free" : formatCents(shippingCents)}</span>
               </div>
               <div className="flex justify-between">
-                <span>Estimated tax:</span>
+                <span className="text-muted">Estimated tax</span>
                 <span>{formatCents(taxCents)}</span>
               </div>
-              <div className="mt-2 flex justify-between border-t border-gray-200 pt-2 text-lg font-bold text-price">
-                <span>Order total:</span>
+              <div className="mt-2 flex justify-between border-t border-line pt-2 text-base font-medium">
+                <span>Total</span>
                 <span>{formatCents(totalCents)}</span>
               </div>
             </div>
           </div>
 
-          <div className="rounded-md bg-white p-4 shadow-sm">
-            <h3 className="mb-2 text-sm font-bold">Items in your order</h3>
+          <div className="rounded-2xl border border-line p-6">
+            <h3 className="mb-3 text-sm font-medium uppercase tracking-wide text-muted">
+              In your order
+            </h3>
             <ul className="space-y-3">
               {lines.map(({ product, quantity }) => {
                 const images = JSON.parse(product.images) as string[];
                 return (
                   <li key={product.id} className="flex gap-3">
-                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded bg-gray-50">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-line/40">
                       <Image src={images[0]} alt={product.title} fill sizes="56px" className="object-cover" />
                     </div>
                     <div className="min-w-0 text-sm">
                       <p className="line-clamp-2">{product.title}</p>
-                      <p className="text-gray-600">
+                      <p className="text-muted">
                         Qty {quantity} · {formatCents(product.priceCents)}
                       </p>
                     </div>
@@ -70,8 +72,8 @@ export default async function CheckoutPage() {
                 );
               })}
             </ul>
-            <Link href="/cart" className="mt-3 inline-block text-sm text-link hover:underline">
-              Edit cart
+            <Link href="/cart" className="mt-4 inline-block text-sm text-brand hover:underline">
+              Edit bag
             </Link>
           </div>
         </div>

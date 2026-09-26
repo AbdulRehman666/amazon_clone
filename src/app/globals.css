@@ -1,33 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #eaeded;
-  --foreground: #0f1111;
-  --navy: #131921;
-  --navy-light: #232f3e;
-  --accent: #febd69;
-  --accent-dark: #f3a847;
-  --link: #007185;
-  --price: #b12704;
-  --success: #067d62;
+  --paper: #faf7f2;
+  --surface: #ffffff;
+  --ink: #1b1b18;
+  --muted: #6b6558;
+  --line: #e7e1d6;
+  --brand: #b4502a;
+  --brand-dark: #93401f;
+  --success: #2f6f4e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-navy: var(--navy);
-  --color-navy-light: var(--navy-light);
-  --color-accent: var(--accent);
-  --color-accent-dark: var(--accent-dark);
-  --color-link: var(--link);
-  --color-price: var(--price);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
   --color-success: var(--success);
   --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .line-clamp-2 {

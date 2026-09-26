@@ -5,7 +5,7 @@ const secretKey = new TextEncoder().encode(
   process.env.AUTH_SECRET ?? "dev-only-secret-change-in-production-0123456789abcdef"
 );
 
-const PROTECTED_PREFIXES = ["/account", "/checkout"];
+const PROTECTED_PREFIXES = ["/account", "/checkout", "/admin"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -15,7 +15,10 @@ export async function proxy(request: NextRequest) {
   const token = request.cookies.get("session")?.value;
   if (token) {
     try {
-      await jwtVerify(token, secretKey);
+      const { payload } = await jwtVerify(token, secretKey);
+      if (pathname.startsWith("/admin") && payload.role !== "admin") {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
       return NextResponse.next();
     } catch {
       // fall through to redirect
@@ -28,5 +31,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/checkout/:path*"],
+  matcher: ["/account/:path*", "/checkout/:path*", "/admin/:path*"],
 };

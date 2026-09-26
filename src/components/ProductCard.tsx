@@ -7,33 +7,33 @@ import type { Product } from "@prisma/client";
 export default function ProductCard({ product }: { product: Product }) {
   const images = JSON.parse(product.images) as string[];
   return (
-    <Link
-      href={`/product/${product.slug}`}
-      className="flex h-full flex-col rounded-lg border border-transparent bg-white p-4 transition hover:border-gray-200 hover:shadow-md"
-    >
-      <div className="relative mb-3 aspect-square w-full overflow-hidden rounded-md bg-gray-50">
+    <Link href={`/product/${product.slug}`} className="group flex h-full flex-col">
+      <div className="relative mb-3 aspect-[4/5] w-full overflow-hidden rounded-2xl bg-line/40">
         <Image
           src={images[0]}
           alt={product.title}
           fill
-          sizes="(max-width: 768px) 50vw, 220px"
-          className="object-cover"
+          sizes="(max-width: 768px) 50vw, 260px"
+          className="object-cover transition duration-300 group-hover:scale-[1.03]"
         />
+        {product.listPriceCents && (
+          <span className="absolute left-3 top-3 rounded-full bg-ink px-2.5 py-1 text-[11px] font-medium text-paper">
+            Sale
+          </span>
+        )}
       </div>
-      <p className="line-clamp-2 text-sm text-gray-900">{product.title}</p>
+      <p className="text-[11px] uppercase tracking-wide text-muted">{product.brand}</p>
+      <p className="line-clamp-2 text-sm text-ink">{product.title}</p>
       <div className="mt-1">
         <StarRating rating={product.rating} reviewCount={product.reviewCount} />
       </div>
       <div className="mt-1 flex items-baseline gap-2">
-        <span className="text-lg font-medium">{formatCents(product.priceCents)}</span>
+        <span className="font-medium text-ink">{formatCents(product.priceCents)}</span>
         {product.listPriceCents && (
-          <span className="text-sm text-gray-500 line-through">
+          <span className="text-sm text-muted line-through">
             {formatCents(product.listPriceCents)}
           </span>
         )}
-      </div>
-      <div className="mt-auto pt-2 text-xs text-gray-600">
-        FREE delivery <span className="font-semibold text-gray-800">tomorrow</span>
       </div>
     </Link>
   );

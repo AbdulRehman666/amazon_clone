@@ -16,8 +16,8 @@ export async function verifyPassword(password: string, hash: string) {
   return bcrypt.compare(password, hash);
 }
 
-export async function createSession(userId: string) {
-  const token = await new SignJWT({ userId })
+export async function createSession(userId: string, role: string) {
+  const token = await new SignJWT({ userId, role })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("30d")
@@ -50,8 +50,26 @@ export async function getSessionUserId(): Promise<string | null> {
   }
 }
 
+export async function getSessionRole(): Promise<string | null> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
+  if (!token) return null;
+  try {
+    const { payload } = await jwtVerify(token, secretKey);
+    return (payload.role as string) ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getCurrentUser() {
   const userId = await getSessionUserId();
   if (!userId) return null;
   return prisma.user.findUnique({ where: { id: userId } });
+}
+
+export async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "admin") return null;
+  return user;
 }

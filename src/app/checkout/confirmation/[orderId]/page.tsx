@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { formatCents } from "@/lib/money";
+import OrderStatusBadge from "@/components/OrderStatusBadge";
 
 export default async function OrderConfirmationPage({
   params,
@@ -23,14 +24,15 @@ export default async function OrderConfirmationPage({
         </svg>
       </div>
       <h1 className="text-2xl font-medium">Order placed, thank you!</h1>
-      <p className="mt-1 text-gray-600">Confirmation email sent (not really — this is a demo).</p>
+      <p className="mt-1 text-muted">Confirmation email sent (not really — this is a demo).</p>
 
-      <div className="mt-6 rounded-md bg-white p-4 text-left shadow-sm">
-        <div className="mb-3 flex justify-between text-sm text-gray-600">
+      <div className="mt-6 rounded-2xl border border-line bg-surface p-6 text-left">
+        <div className="mb-3 flex items-center justify-between text-sm text-muted">
           <span>Order # {order.id}</span>
+          <OrderStatusBadge status={order.status} />
           <span>{order.createdAt.toLocaleDateString()}</span>
         </div>
-        <ul className="mb-3 divide-y divide-gray-200">
+        <ul className="mb-3 divide-y divide-line">
           {order.items.map((item) => (
             <li key={item.id} className="flex justify-between py-2 text-sm">
               <span>
@@ -40,7 +42,7 @@ export default async function OrderConfirmationPage({
             </li>
           ))}
         </ul>
-        <div className="space-y-1 border-t border-gray-200 pt-2 text-sm">
+        <div className="space-y-1 border-t border-line pt-2 text-sm">
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>{formatCents(order.subtotalCents)}</span>
@@ -58,19 +60,19 @@ export default async function OrderConfirmationPage({
             <span>{formatCents(order.totalCents)}</span>
           </div>
         </div>
-        <div className="mt-3 border-t border-gray-200 pt-2 text-sm text-gray-700">
+        <div className="mt-3 border-t border-line pt-2 text-sm text-muted">
           Shipping to {order.address.fullName}, {order.address.line1}, {order.address.city}
         </div>
-        <div className="text-sm text-gray-700">
+        <div className="text-sm text-muted">
           Paid with {order.cardBrand} ending in {order.cardLast4}
         </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-4">
-        <Link href="/account/orders" className="rounded-full bg-accent px-4 py-2 text-sm font-medium hover:bg-accent-dark">
+        <Link href="/account/orders" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper hover:bg-brand">
           View your orders
         </Link>
-        <Link href="/" className="rounded-full border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50">
+        <Link href="/" className="rounded-full border border-line px-4 py-2 text-sm hover:border-ink">
           Continue shopping
         </Link>
       </div>

@@ -34,7 +34,7 @@ export default function CartLineControls({
       <select
         value={quantity}
         onChange={(e) => handleQuantityChange(Number(e.target.value))}
-        className="rounded border border-gray-300 px-2 py-1"
+        className="rounded-full border border-line px-3 py-1"
         aria-label="Quantity"
       >
         {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
@@ -43,8 +43,8 @@ export default function CartLineControls({
           </option>
         ))}
       </select>
-      <button type="button" onClick={handleRemove} className="text-link hover:underline">
-        Delete
+      <button type="button" onClick={handleRemove} className="text-muted hover:text-brand">
+        Remove
       </button>
     </div>
   );

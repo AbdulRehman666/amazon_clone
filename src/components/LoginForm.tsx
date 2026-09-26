@@ -21,7 +21,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
           type="email"
           name="email"
           required
-          className="w-full rounded border border-gray-400 px-3 py-2"
+          className="w-full rounded-xl border border-line px-3 py-2.5 text-sm outline-none focus:border-brand"
         />
       </div>
       <div>
@@ -30,24 +30,24 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
           type="password"
           name="password"
           required
-          className="w-full rounded border border-gray-400 px-3 py-2"
+          className="w-full rounded-xl border border-line px-3 py-2.5 text-sm outline-none focus:border-brand"
         />
       </div>
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-accent px-4 py-2 text-sm font-medium hover:bg-accent-dark disabled:opacity-50"
+        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-paper hover:bg-brand disabled:opacity-50"
       >
         {pending ? "Signing in..." : "Sign in"}
       </button>
-      <p className="text-xs text-gray-600">
-        By continuing, you agree to amazan&apos;s fictional Conditions of Use.
+      <p className="text-xs text-muted">
+        By continuing, you agree to Marlo&apos;s fictional Conditions of Use.
       </p>
-      <hr className="border-gray-200" />
+      <hr className="border-line" />
       <p className="text-sm">
-        New to amazan?{" "}
-        <Link href={`/signup?redirect=${encodeURIComponent(redirectTo)}`} className="text-link hover:underline">
-          Create your amazan account
+        New to Marlo?{" "}
+        <Link href={`/signup?redirect=${encodeURIComponent(redirectTo)}`} className="text-brand hover:underline">
+          Create your Marlo account
         </Link>
       </p>
     </form>

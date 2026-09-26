@@ -60,28 +60,34 @@ export default async function SearchPage({
   const priceCaps = [2500, 5000, 10000, 25000];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6">
-      <p className="mb-4 text-sm text-gray-700">
-        {products.length} results {q && <>for &quot;{q}&quot;</>}
-      </p>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-display text-2xl">
+            {q ? `Results for “${q}”` : categorySlug ? categories.find((c) => c.slug === categorySlug)?.name : "Everything"}
+          </h1>
+          <p className="text-sm text-muted">{products.length} products</p>
+        </div>
+        <SortSelect current={sortKey} />
+      </div>
 
-      <div className="flex flex-col gap-6 md:flex-row">
-        <aside className="w-full shrink-0 md:w-56">
-          <h3 className="mb-2 font-bold">Department</h3>
+      <div className="flex flex-col gap-8 md:flex-row">
+        <aside className="w-full shrink-0 md:w-52">
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">Department</h3>
           <ul className="mb-6 space-y-1 text-sm">
             <li>
               <Link
                 href={buildHref({ category: undefined })}
-                className={`hover:underline ${!categorySlug ? "font-bold text-price" : "text-link"}`}
+                className={!categorySlug ? "font-medium text-brand" : "text-muted hover:text-ink"}
               >
-                All Departments
+                Everything
               </Link>
             </li>
             {categories.map((c) => (
               <li key={c.id}>
                 <Link
                   href={buildHref({ category: c.slug })}
-                  className={`hover:underline ${categorySlug === c.slug ? "font-bold text-price" : "text-link"}`}
+                  className={categorySlug === c.slug ? "font-medium text-brand" : "text-muted hover:text-ink"}
                 >
                   {c.name}
                 </Link>
@@ -89,12 +95,12 @@ export default async function SearchPage({
             ))}
           </ul>
 
-          <h3 className="mb-2 font-bold">Price</h3>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">Price</h3>
           <ul className="space-y-1 text-sm">
             <li>
               <Link
                 href={buildHref({ maxPrice: undefined })}
-                className={`hover:underline ${!maxPrice ? "font-bold text-price" : "text-link"}`}
+                className={!maxPrice ? "font-medium text-brand" : "text-muted hover:text-ink"}
               >
                 Any price
               </Link>
@@ -103,7 +109,7 @@ export default async function SearchPage({
               <li key={cap}>
                 <Link
                   href={buildHref({ maxPrice: String(cap) })}
-                  className={`hover:underline ${maxPrice === cap ? "font-bold text-price" : "text-link"}`}
+                  className={maxPrice === cap ? "font-medium text-brand" : "text-muted hover:text-ink"}
                 >
                   Under ${(cap / 100).toFixed(0)}
                 </Link>
@@ -113,17 +119,12 @@ export default async function SearchPage({
         </aside>
 
         <div className="flex-1">
-          <div className="mb-4 flex items-center justify-end gap-2 text-sm">
-            <span className="text-gray-600">Sort by:</span>
-            <SortSelect current={sortKey} />
-          </div>
-
           {products.length === 0 ? (
-            <p className="rounded bg-white p-8 text-center text-gray-600 shadow">
+            <p className="rounded-2xl border border-line p-10 text-center text-muted">
               No results found. Try a different search or clear filters.
             </p>
           ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
               {products.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

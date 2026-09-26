@@ -11,11 +11,11 @@ function Star({ fill }: { fill: number }) {
       </defs>
       <path
         d="M10 1.5 12.6 7l6 .87-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6-4.3-4.2 6-.87Z"
-        fill="#d5d9d9"
+        fill="#e7e1d6"
       />
       <path
         d="M10 1.5 12.6 7l6 .87-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6-4.3-4.2 6-.87Z"
-        fill="#febd69"
+        fill="#b4502a"
         clipPath={`url(#${id})`}
       />
     </svg>
@@ -40,7 +40,7 @@ export default function StarRating({
         ))}
       </div>
       {reviewCount !== undefined && (
-        <span className="text-sm text-link hover:underline">
+        <span className="text-sm text-muted">
           {reviewCount.toLocaleString()}
         </span>
       )}

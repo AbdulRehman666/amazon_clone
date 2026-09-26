@@ -1,16 +1,25 @@
 export default function CartIcon({ count }: { count: number }) {
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-flex items-center gap-1.5 text-sm font-medium">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="currentColor"
-        className="h-8 w-8"
+        fill="none"
+        className="h-5 w-5"
       >
-        <path d="M7 4h-2l-1 2v1h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14.19l-.94-2z" />
+        <path
+          d="M3 4h2l1.2 12.2A2 2 0 0 0 8.2 18H18a2 2 0 0 0 1.95-1.55L21.5 8H6"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="9" cy="21" r="1.4" fill="currentColor" />
+        <circle cx="17" cy="21" r="1.4" fill="currentColor" />
       </svg>
+      Bag
       {count > 0 && (
-        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-navy">
+        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-[11px] font-bold text-white">
           {count > 99 ? "99+" : count}
         </span>
       )}

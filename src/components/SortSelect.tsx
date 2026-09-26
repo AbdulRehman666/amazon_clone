@@ -25,7 +25,7 @@ export default function SortSelect({ current }: { current: string }) {
     <select
       value={current}
       onChange={handleChange}
-      className="rounded border border-gray-300 px-2 py-1"
+      className="rounded border border-line px-2 py-1"
       aria-label="Sort by"
     >
       {OPTIONS.map((o) => (

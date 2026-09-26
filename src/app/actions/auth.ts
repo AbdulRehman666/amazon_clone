@@ -13,7 +13,7 @@ export async function signupAction(
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  const redirectTo = String(formData.get("redirectTo") ?? "/account");
+  const redirectTo = String(formData.get("redirectTo") || "/account");
 
   if (!name || !email || !password) {
     return { error: "Please fill in all fields." };
@@ -32,7 +32,7 @@ export async function signupAction(
     data: { name, email, passwordHash },
   });
 
-  await createSession(user.id);
+  await createSession(user.id, user.role);
   redirect(redirectTo);
 }
 
@@ -42,7 +42,7 @@ export async function loginAction(
 ): Promise<AuthFormState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  const redirectTo = String(formData.get("redirectTo") ?? "/account");
+  const requestedRedirect = formData.get("redirectTo");
 
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
@@ -53,7 +53,14 @@ export async function loginAction(
     return { error: "Invalid email or password." };
   }
 
-  await createSession(user.id);
+  await createSession(user.id, user.role);
+
+  const redirectTo =
+    typeof requestedRedirect === "string" && requestedRedirect
+      ? requestedRedirect
+      : user.role === "admin"
+        ? "/admin/orders"
+        : "/account";
   redirect(redirectTo);
 }
 

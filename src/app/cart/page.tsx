@@ -10,34 +10,34 @@ export default async function CartPage() {
   const itemCount = lines.reduce((sum, l) => sum + l.quantity, 0);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-        <div className="rounded-md bg-white p-4 shadow-sm sm:p-6">
-          <h1 className="mb-4 border-b border-gray-200 pb-3 text-2xl font-medium">
-            Shopping Cart
-          </h1>
-
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <h1 className="mb-8 font-display text-3xl">Your bag</h1>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
+        <div>
           {lines.length === 0 ? (
-            <div className="py-10 text-center">
-              <p className="mb-4 text-lg">Your cart is empty.</p>
-              <Link href="/" className="text-link hover:underline">
+            <div className="rounded-2xl border border-line py-16 text-center">
+              <p className="mb-4 text-muted">Your bag is empty.</p>
+              <Link href="/" className="text-brand hover:underline">
                 Continue shopping
               </Link>
             </div>
           ) : (
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-line">
               {lines.map(({ product, quantity }) => {
                 const images = JSON.parse(product.images) as string[];
                 return (
-                  <li key={product.id} className="flex gap-4 py-4">
-                    <Link href={`/product/${product.slug}`} className="relative h-28 w-28 shrink-0 overflow-hidden rounded bg-gray-50">
+                  <li key={product.id} className="flex gap-4 py-5">
+                    <Link
+                      href={`/product/${product.slug}`}
+                      className="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-line/40"
+                    >
                       <Image src={images[0]} alt={product.title} fill sizes="112px" className="object-cover" />
                     </Link>
                     <div className="flex-1">
-                      <Link href={`/product/${product.slug}`} className="font-medium hover:text-link hover:underline">
+                      <Link href={`/product/${product.slug}`} className="font-medium hover:text-brand">
                         {product.title}
                       </Link>
-                      <p className="text-sm text-success">In Stock</p>
+                      <p className="text-sm text-success">In stock</p>
                       <CartLineControls productId={product.id} quantity={quantity} />
                     </div>
                     <div className="text-right font-medium">
@@ -51,16 +51,16 @@ export default async function CartPage() {
         </div>
 
         {lines.length > 0 && (
-          <div className="h-fit rounded-md bg-white p-4 shadow-sm">
-            <p className="text-lg">
-              Subtotal ({itemCount} item{itemCount === 1 ? "" : "s"}):{" "}
-              <span className="font-bold">{formatCents(subtotalCents)}</span>
+          <div className="h-fit rounded-2xl border border-line p-6">
+            <p className="text-sm text-muted">
+              Subtotal ({itemCount} item{itemCount === 1 ? "" : "s"})
             </p>
+            <p className="mt-1 text-2xl font-medium">{formatCents(subtotalCents)}</p>
             <Link
               href="/checkout"
-              className="mt-3 block w-full rounded-full bg-accent px-4 py-2 text-center text-sm font-medium hover:bg-accent-dark"
+              className="mt-4 block w-full rounded-full bg-ink px-4 py-3 text-center text-sm font-medium text-paper hover:bg-brand"
             >
-              Proceed to checkout
+              Checkout
             </Link>
           </div>
         )}

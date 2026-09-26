@@ -13,59 +13,61 @@ export default async function Navbar() {
   ]);
 
   return (
-    <header className="sticky top-0 z-50">
-      <div className="bg-navy text-white">
-        <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-2 sm:px-4">
-          <Link href="/" className="shrink-0 rounded-sm border border-transparent px-2 py-1 text-xl font-bold hover:border-white">
-            amaz<span className="text-accent">an</span>
-          </Link>
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 sm:gap-6 sm:px-6">
+        <Link href="/" className="shrink-0 font-display text-2xl tracking-tight text-ink">
+          Marlo
+        </Link>
 
-          <Link
-            href="/account/orders"
-            className="hidden shrink-0 flex-col rounded-sm border border-transparent px-2 py-1 text-xs leading-tight hover:border-white sm:flex"
-          >
-            <span className="text-gray-300">Deliver to</span>
-            <span className="font-bold">Your Address</span>
-          </Link>
+        <SearchBar categories={categories.map((c) => ({ slug: c.slug, name: c.name }))} />
 
-          <SearchBar categories={categories.map((c) => ({ slug: c.slug, name: c.name }))} />
-
+        <nav className="flex shrink-0 items-center gap-4 text-sm">
           <Link
             href={user ? "/account" : "/login"}
-            className="hidden shrink-0 flex-col rounded-sm border border-transparent px-2 py-1 text-xs leading-tight hover:border-white md:flex"
+            className="hidden flex-col leading-tight text-ink hover:text-brand sm:flex"
           >
-            <span className="text-gray-300">
-              Hello, {user ? user.name.split(" ")[0] : "sign in"}
+            <span className="text-[11px] text-muted">
+              {user ? `Hi, ${user.name.split(" ")[0]}` : "Welcome"}
             </span>
-            <span className="font-bold">Account &amp; Lists</span>
+            <span className="font-medium">Account</span>
           </Link>
 
           <Link
             href="/account/orders"
-            className="hidden shrink-0 flex-col rounded-sm border border-transparent px-2 py-1 text-xs leading-tight hover:border-white lg:flex"
+            className="hidden flex-col leading-tight text-ink hover:text-brand md:flex"
           >
-            <span className="text-gray-300">Returns</span>
-            <span className="font-bold">&amp; Orders</span>
+            <span className="text-[11px] text-muted">Track</span>
+            <span className="font-medium">Orders</span>
           </Link>
 
-          <Link
-            href="/cart"
-            className="flex shrink-0 items-end gap-1 rounded-sm border border-transparent px-2 py-1 hover:border-white"
-          >
+          {user?.role === "admin" && (
+            <Link
+              href="/admin/orders"
+              className="hidden rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-paper hover:bg-brand sm:inline"
+            >
+              Admin
+            </Link>
+          )}
+
+          <Link href="/cart" className="flex items-center gap-2 rounded-full border border-line px-3 py-2 hover:border-brand hover:text-brand">
             <CartIcon count={cartCount} />
-            <span className="hidden text-sm font-bold sm:inline">Cart</span>
           </Link>
-        </div>
+        </nav>
       </div>
 
-      <div className="hidden bg-navy-light text-sm text-white sm:block">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 overflow-x-auto px-4 py-1.5">
-          <span className="shrink-0 font-semibold">All Categories:</span>
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-6xl items-center gap-2 overflow-x-auto px-4 py-2.5 text-sm sm:px-6">
+          <Link
+            href="/s"
+            className="shrink-0 rounded-full px-3 py-1 text-muted hover:bg-ink/5 hover:text-ink"
+          >
+            Everything
+          </Link>
           {categories.map((c) => (
             <Link
               key={c.id}
               href={`/s?category=${c.slug}`}
-              className="shrink-0 rounded-sm border border-transparent px-1 py-0.5 hover:border-white"
+              className="shrink-0 rounded-full px-3 py-1 text-muted hover:bg-ink/5 hover:text-ink"
             >
               {c.name}
             </Link>
